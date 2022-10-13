@@ -1,0 +1,39 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    container: node:16.14.0
+    strategy:
+      matrix:
+        node-version: [16.14.0]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - name: Make a change to trigger the pipeline
+        run: |
+          echo 'Dummy change number 1'
+          echo "USER:USER GITHUB_WORKSPACE:$RUNNER_NAME"
+          echo "$USER:$USER $GITHUB_WORKSPACE:$RUNNER_NAME"   
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+      #   run: npm ci
+      # - run: npm test --passWithNoTests
+      # - run: CI=false npm run build --if-present
+      - run: sleep 5m
