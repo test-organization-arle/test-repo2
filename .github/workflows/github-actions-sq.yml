@@ -57,7 +57,9 @@ jobs:
           python -m flake8 --ignore=F821 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Run tox
-        run: python -m tox -e py
+        run: |
+        . sonarqube/bin/activate
+          python -m tox -e py
 
       # - name: SonarCloud Scan
       #   uses: SonarSource/sonarcloud-github-action@master
