@@ -30,7 +30,7 @@ jobs:
 
       - name: Install tox and any other dependencies
         run: |
-          mkdir  /github/home/.cache/pip
+          mkdir -p /github/home/.cache/pip
           chown -R root:root /github/home/.cache/pip        
           python -m venv sonarqube
           . sonarqube/bin/activate
