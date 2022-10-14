@@ -1,0 +1,93 @@
+name: GitHub Actions for pull requests
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - 'develop'    
+      - 'common'
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    container: python:alpine3.8
+    strategy:
+      matrix:
+        python-version: [ "3.8",]
+    steps:
+      # - name: cleanup #https://github.com/actions/checkout/issues/211
+      #   run: |
+      #     sudo chown -R $USER:$USER $GITHUB_WORKSPACE -R
+          
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install tox and any other dependencies
+        run: | 
+          python -m pip install --upgrade pip
+          python -m pip install tox-docker --user
+          python -m pip install tox --user
+          python -m pip install -r requirements_test.txt --user
+          
+
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          python -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run tox
+        run: python -m tox -e py
+
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  # deploy:
+  #   needs: sonarcloud
+  #   runs-on: self-hosted
+  #   container: ubuntu:22.04
+  #   steps:
+  #     - name: Trigger AWS CodePipeline dev env
+  #       uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+  #       if: github.ref == 'refs/heads/common'
+  #       with:
+  #         aws-region: "us-east-1"
+  #         aws-access-key: ${{ secrets.AWS_DEV_PIPELINE_ACCESS_KEY }}
+  #         aws-secret-key: ${{ secrets.AWS_DEV_PIPELINE_SECRET_KEY }}
+  #         pipeline-name: "develop-api-services-code-pipeline"
+
+  #     - name: Trigger AWS CodePipeline qa env
+  #       uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+  #       if: github.ref == 'refs/heads/develop'
+  #       with:
+  #         aws-region: "us-east-1"
+  #         aws-access-key: ${{ secrets.AWS_PIPELINE_ACCESS_KEY }}
+  #         aws-secret-key: ${{ secrets.AWS_PIPELINE_SECRET_KEY }}
+  #         pipeline-name: "qa-api-services-code-pipeline"
+
+  #     - name: Trigger AWS CodePipeline staging env
+  #       uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+  #       if: github.ref == 'refs/heads/staging'
+  #       with:
+  #         aws-region: "us-east-1"
+  #         aws-access-key: ${{ secrets.AWS_PIPELINE_ACCESS_KEY }}
+  #         aws-secret-key: ${{ secrets.AWS_PIPELINE_SECRET_KEY }}
+  #         pipeline-name: "staging-api-services-code-pipeline"
+
+  #     - name: Trigger AWS CodePipeline production env
+  #       uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+  #       if: github.ref == 'refs/heads/production'
+  #       with:
+  #         aws-region: "us-east-1"
+  #         aws-access-key: ${{ secrets.AWS_PIPELINE_ACCESS_KEY }}
+  #         aws-secret-key: ${{ secrets.AWS_PIPELINE_SECRET_KEY }}
+  #         pipeline-name: "production-api-services-code-pipeline"
