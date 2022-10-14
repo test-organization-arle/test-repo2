@@ -9,7 +9,8 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
-    container: python:alpine3.8
+    #container: python:alpine3.8
+    container: python:3.8.15-slim-buster
     strategy:
       matrix:
         python-version: [ "3.8",]
@@ -29,6 +30,8 @@ jobs:
 
       - name: Install tox and any other dependencies
         run: | 
+          python -m venv sonarqube
+          source sonarqube/bin/activate        
           python -m pip install --upgrade pip
           python -m pip install tox-docker --user
           python -m pip install tox --user
