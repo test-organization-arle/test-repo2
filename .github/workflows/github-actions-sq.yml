@@ -58,7 +58,7 @@ jobs:
 
       - name: Run tox
         run: |
-        . sonarqube/bin/activate
+          . sonarqube/bin/activate
           python -m tox -e py
 
       # - name: SonarCloud Scan
