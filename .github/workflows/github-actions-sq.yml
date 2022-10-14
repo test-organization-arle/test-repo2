@@ -28,25 +28,33 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
-      - name: Install tox and any other dependencies
-        run: | 
-          python -m venv sonarqube --user
-          . sonarqube/bin/activate        
-          python -m pip install --upgrade pip
-          python -m pip install tox-docker --user
-          python -m pip install tox --user
-          python -m pip install -r requirements_test.txt --user
+      - run: |
+          whoami
+          pwd
+          ls -lhd
+          ls -alh
+          python -m venv sonarqube
+          ls -lhR
+
+      # - name: Install tox and any other dependencies
+      #   run: | 
+      #     python -m venv sonarqube
+      #     . sonarqube/bin/activate        
+      #     python -m pip install --upgrade pip
+      #     python -m pip install tox-docker --user
+      #     python -m pip install tox --user
+      #     python -m pip install -r requirements_test.txt --user
           
 
-      - name: Lint with flake8
-        run: |
-          # stop the build if there are Python syntax errors or undefined names
-          python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          python -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      # - name: Lint with flake8
+      #   run: |
+      #     # stop the build if there are Python syntax errors or undefined names
+      #     python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      #     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      #     python -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      - name: Run tox
-        run: python -m tox -e py
+      # - name: Run tox
+      #   run: python -m tox -e py
 
       # - name: SonarCloud Scan
       #   uses: SonarSource/sonarcloud-github-action@master
