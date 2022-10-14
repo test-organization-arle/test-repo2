@@ -33,9 +33,9 @@ jobs:
           python -m venv sonarqube
           . sonarqube/bin/activate        
           python -m pip install --upgrade pip
-          python -m pip install tox-docker --user
-          python -m pip install tox --user
-          python -m pip install -r requirements_test.txt --user
+          python -m pip install tox-docker
+          python -m pip install tox
+          python -m pip install -r requirements_test.txt
           
 
       - name: Lint with flake8
