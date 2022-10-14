@@ -45,20 +45,21 @@ jobs:
           python -m pip install -r requirements_test.txt
           
 
-      - name: Lint with flake8
-        run: |
-          ls -lh
-          . sonarqube/bin/activate
-          echo "python --version"
-          python --version
-          # stop the build if there are Python syntax errors or undefined names
-          python -m flake8 --ignore=F821 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          python -m flake8 --ignore=F821 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      # - name: Lint with flake8
+      #   run: |
+      #     ls -lh
+      #     . sonarqube/bin/activate
+      #     echo "python --version"
+      #     python --version
+      #     # stop the build if there are Python syntax errors or undefined names
+      #     python -m flake8 --ignore=F821 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      #     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      #     python -m flake8 --ignore=F821 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Run tox
         run: |
           . sonarqube/bin/activate
+          mkdir -p /__w/SelectTV--APIServerless/SelectTV--
           python -m tox -e py
 
       # - name: SonarCloud Scan
