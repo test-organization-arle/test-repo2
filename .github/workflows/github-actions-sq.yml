@@ -32,10 +32,9 @@ jobs:
         run: | 
           python -m venv sonarqube
           . sonarqube/bin/activate
-          echo "sonarqube/pip.conf"          
-          cat sonarqube/pip.conf          
           mkdir $GITHUB_WORKSPACE/.cache       
           python -m pip install --upgrade pip
+          chown -R root:root/github/home/.cache/pip          
           python -m pip install tox-docker
           # python -m pip install tox --user
           # python -m pip install -r requirements_test.txt --user
