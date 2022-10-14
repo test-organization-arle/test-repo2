@@ -30,10 +30,10 @@ jobs:
 
       - name: Install tox and any other dependencies
         run: | 
-          echo "~/.pip/pip.conf"
-          cat ~/.pip/pip.conf
           python -m venv sonarqube
           . sonarqube/bin/activate
+          echo "sonarqube/pip.conf"          
+          cat sonarqube/pip.conf          
           mkdir $GITHUB_WORKSPACE/.cache       
           python -m pip install --upgrade pip
           python -m pip install tox-docker
