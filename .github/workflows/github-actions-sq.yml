@@ -34,7 +34,7 @@ jobs:
           . sonarqube/bin/activate        
           python -m pip install --upgrade pip
           python -m pip install tox-docker || echo 1
-          ls -lhR
+          ls -lhR /github/
           # python -m pip install tox --user
           # python -m pip install -r requirements_test.txt --user
           
