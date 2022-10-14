@@ -17,7 +17,7 @@ jobs:
       # - name: cleanup #https://github.com/actions/checkout/issues/211
       #   run: |
       #     sudo chown -R $USER:$USER $GITHUB_WORKSPACE -R
-          
+      - run: echo "run 1"   
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
