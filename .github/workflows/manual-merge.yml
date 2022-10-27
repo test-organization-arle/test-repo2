@@ -1,4 +1,4 @@
-name: Merge development branch into staging branch
+name: Merge development into staging branch
 on: workflow_dispatch
 jobs:
   merge-branch:
@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Merge by labeled
+      - name: Merge development into stagin
         uses: devmasx/merge-branch@master
         with:
           type: now
