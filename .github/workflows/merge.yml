@@ -1,7 +1,5 @@
 name: Merge branch with labeled
-on:
-  pull_request:
-    types: [labeled]
+on: workflow_dispatch
 jobs:
   merge-branch:
     runs-on: ubuntu-latest
@@ -11,6 +9,7 @@ jobs:
       - name: Merge by labeled
         uses: devmasx/merge-branch@master
         with:
-          label_name: 'merged in staging'
+          type: now
+          from_branch: 'development'
           target_branch: 'staging'
           github_token: ${{secrets.GITHUB_TOKEN}}
