@@ -1,4 +1,4 @@
-name: Merge branch with labeled
+name: Merge development branch into staging branch
 on: workflow_dispatch
 jobs:
   merge-branch:
