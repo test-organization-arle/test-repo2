@@ -34,7 +34,7 @@ jobs:
       - name: Dry Terraform Apply Refresh
         id: DryApplyRefresh
         run: echo 'terraform -chdir=dev state rm module.ec2.aws_network_interface_sg_attachment.sg_attachment1["instance5"]'
-        if: ${{ github.event.inputs.dryRun == 'false' }}          
+        if: ${{ github.event.inputs.dryRun == 'true' }}          
           
       - name: Terraform Apply Refresh
         id: ApplyRefresh
