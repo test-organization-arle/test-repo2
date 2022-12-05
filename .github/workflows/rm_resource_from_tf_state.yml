@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       dryRun:
-        description: 'Report all of the resource instances that match the given address without actually "forgetting" any of them'
+        description: 'dryRun'
         type: choice
         options:
         - true
@@ -29,8 +29,14 @@ jobs:
         with:
           terraform_version: 1.1.4
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        if: ${{ github.event.inputs.dryRun == 'true' }}
 
+      - name: Dry Terraform Apply Refresh
+        id: ApplyRefresh
+        run: echo 'terraform -chdir=dev state rm module.ec2.aws_network_interface_sg_attachment.sg_attachment1["instance5"]'
+        if: ${{ github.event.inputs.dryRun == 'false' }}          
+          
       - name: Terraform Apply Refresh
         id: ApplyRefresh
-        run: terraform -chdir=dev state rm 'module.ec2.aws_network_interface_sg_attachment.sg_attachment1["instance5"]'
+        run: echo 'terraform -chdir=dev state rm module.ec2.aws_network_interface_sg_attachment.sg_attachment1["instance5"]'
         if: ${{ github.event.inputs.dryRun == 'false' }}
