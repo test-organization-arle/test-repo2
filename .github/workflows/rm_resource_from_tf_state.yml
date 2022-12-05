@@ -24,12 +24,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.1.4
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        if: ${{ github.event.inputs.dryRun == 'true' }}
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_version: 1.1.4
+      #     cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      #   if: ${{ github.event.inputs.dryRun == 'true' }}
 
       - name: Dry Terraform Apply Refresh
         id: ApplyRefresh
