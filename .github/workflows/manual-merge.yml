@@ -1,0 +1,15 @@
+name: Merge development into staging branch
+on: workflow_dispatch
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge development into stagin
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: 'development'
+          target_branch: 'staging'
+          github_token: ${{secrets.GITHUB_TOKEN}}
