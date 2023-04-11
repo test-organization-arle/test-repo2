@@ -5,11 +5,9 @@ runs:
   using: "composite"
   steps:   
       #----------------------------------------------
-      #       check-out repo and set-up python
+      #       Set-up python
       #----------------------------------------------
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis      
+     
       - uses: actions/setup-python@v4
         id: setup-python
         with:
