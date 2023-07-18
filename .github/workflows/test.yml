@@ -5,6 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ vars.RUNS_ON_HOST}}
+    #runs-on: ${{ vars.RUNS_ON_HOST}}
+    runs-on: self-hosted
     steps:
       - run: "echo Test"
