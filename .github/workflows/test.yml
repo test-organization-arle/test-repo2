@@ -5,9 +5,9 @@ on:
 
 jobs:
   test:
-    # runs-on:    
-    #   group: ${{ vars.RUNS_ON_GROUP}}
-    #   labels: ${{ vars.RUNS_ON_LABEL}}    
-    runs-on: ${{ vars.RUNS_ON_LABEL}}
+    runs-on:    
+      group: ${{ vars.RUNS_ON_GROUP}}
+      labels: ${{ vars.RUNS_ON_LABEL}}    
+    #runs-on: ${{ vars.RUNS_ON_LABEL}}
     steps:
       - run: "echo Test"
