@@ -5,12 +5,7 @@ on:
 
 jobs:
   test:  
-    runs-on: ${{ steps.runner-data.outputs.gh_runner_label }}
+    runs-on: ${{ vars.RUNS_ON_LABEL }
     steps:
-      - name: Get Github Runner Label
-        id: runner-data
-        run: |
-          GH_RUNNER_LABEL=${{ vars.RUNS_ON_LABEL }}
-          echo "gh_runner_label=$GH_RUNNER_LABEL" >> $GITHUB_OUTPUT
       - run: |
-          echo runner_label: ${{ steps.runner-data.outputs.gh_runner_label }}
+          echo runner_label: ${{ vars.RUNS_ON_LABEL }
