@@ -5,6 +5,9 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ vars.RUNS_ON_HOST}}
+    runs-on:    
+      group: ubuntu-runners
+      labels: ${{ vars.RUNS_ON_GROUP}}    
+    #runs-on: ${{ vars.RUNS_ON_LABEL}}
     steps:
       - run: "echo Test"
