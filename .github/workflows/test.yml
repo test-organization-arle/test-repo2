@@ -1,11 +1,13 @@
-name: Runner test
+name: Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:  
-    runs-on: ${{ vars.RUNS_ON_LABEL }
+  test:
+    # runs-on:    
+    #   group: ${{ vars.RUNS_ON_GROUP }}
+    #   labels: ${{ vars.RUNS_ON_LABEL }}    
+    runs-on: ${{ vars.RUNS_ON_LABEL }}
     steps:
-      - run: |
-          echo runner_label: ${{ vars.RUNS_ON_LABEL }
+      - run: "echo Test"
