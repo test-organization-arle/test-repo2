@@ -1,13 +1,16 @@
-name: Test
+name: Runner test
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
-    # runs-on:    
-    #   group: ${{ vars.RUNS_ON_GROUP}}
-    #   labels: ${{ vars.RUNS_ON_LABEL}}    
-    runs-on: ${{ vars.RUNS_ON_LABEL}}
+  test:  
+    runs-on: ${{ steps.runner-data.outputs.gh_runner_label }}
     steps:
-      - run: "echo Test"
+      - name: Get Github Runner Label
+        id: runner-data
+        run: |
+          GH_RUNNER_LABEL=${{ vars.RUNS_ON_LABEL }}
+          echo "gh_runner_label=$GH_RUNNER_LABEL" >> $GITHUB_OUTPUT
+      - run: |
+          echo runner_label: ${{ steps.runner-data.outputs.gh_runner_label }}
