@@ -7,10 +7,10 @@ jobs:
   test:   
     runs-on: ubuntu-latest
     steps:
-      - run: "echo Test"
-      - name: Expose GitHub Runtime
+      - name: Expose GitHub Runtime 
         uses: crazy-max/ghaction-github-runtime@v3
-      - name: Env
+      - name: Show some gh actions runtime variables
         run: |
           # ACTIONS_RUNTIME_TOKEN, ACTIONS_RUNTIME_URL should be exposed
-          env|sort      
+          echo "ACTIONS_CACHE_URL=$ACTIONS_CACHE_URL"
+          echo "ACTIONS_RUNTIME_TOKEN=$ACTIONS_RUNTIME_TOKEN"
