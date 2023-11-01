@@ -4,10 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    # runs-on:    
-    #   group: ${{ vars.RUNS_ON_GROUP }}
-    #   labels: ${{ vars.RUNS_ON_LABEL }}    
-    runs-on: ${{ vars.RUNS_ON_LABEL }}
+  test:   
+    runs-on: ubuntu-latest
     steps:
       - run: "echo Test"
+      - name: Expose GitHub Runtime
+        uses: crazy-max/ghaction-github-runtime@v3
+      - name: Env
+        run: |
+          # ACTIONS_RUNTIME_TOKEN, ACTIONS_RUNTIME_URL should be exposed
+          env|sort      
