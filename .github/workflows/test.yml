@@ -13,4 +13,5 @@ jobs:
           then
             echo "The branch name is develop"
           else
-            echo "The branch name is $GITHUB_REF_NAME"        
+            echo "The branch name is $GITHUB_REF_NAME"
+          fi
