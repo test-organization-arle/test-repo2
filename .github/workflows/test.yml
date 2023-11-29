@@ -7,10 +7,10 @@ jobs:
   test:   
     runs-on: ubuntu-latest
     steps:
-      - name: Expose GitHub Runtime 
-        uses: crazy-max/ghaction-github-runtime@v3
-      - name: Show some gh actions runtime variables
+      - name: Test if clause
         run: |
-          # ACTIONS_RUNTIME_TOKEN, ACTIONS_RUNTIME_URL should be exposed
-          echo "ACTIONS_CACHE_URL=$ACTIONS_CACHE_URL"
-          echo "ACTIONS_RUNTIME_TOKEN=$ACTIONS_RUNTIME_TOKEN"
+          if [ $GITHUB_REF_NAME == "develop" ]
+          then
+            echo "The branch name is develop"
+          else
+            echo "The branch name is $GITHUB_REF_NAME"        
