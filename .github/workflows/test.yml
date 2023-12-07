@@ -18,7 +18,7 @@ jobs:
         env:
           cache-name: ecs-definition-files
         with:
-          path: ~/files/
+          path: ./files/
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ vars.GITHUB_SHA }}
 
   test2:   
@@ -30,7 +30,7 @@ jobs:
         env:
           cache-name: ecs-definition-files
         with:
-          path: ~/files/
+          path: ./files/
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ vars.GITHUB_SHA }}   
       - name: Show cached files
         run: |
