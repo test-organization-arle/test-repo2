@@ -19,7 +19,7 @@ jobs:
           cache-name: ecs-definition-files
         with:
           path: ./files/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ vars.GITHUB_SHA }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
 
   test2:   
     runs-on: ubuntu-latest
