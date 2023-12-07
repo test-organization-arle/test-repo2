@@ -31,7 +31,7 @@ jobs:
           cache-name: ecs-definition-files
         with:
           path: ./files/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ vars.GITHUB_SHA }}   
+          key: ${{ runner.os }}-build-${{ env.cache-name }}  
       - name: Show cached files
         run: |
           ls -lha
