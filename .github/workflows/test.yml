@@ -31,7 +31,7 @@ jobs:
           cache-name: ecs-definition-files
         with:
           path: ./files/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}  
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
       - name: Show cached files
         run: |
           ls -lha
@@ -39,6 +39,6 @@ jobs:
       - uses: snnaplab/delete-branch-cache-action@v1
         with:
           ref: ${{ github.ref }}
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
        
 
