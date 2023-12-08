@@ -36,5 +36,9 @@ jobs:
         run: |
           ls -lha
           cat files/file1.txt
+      - uses: snnaplab/delete-branch-cache-action@v1
+        with:
+          ref: ${{ github.ref }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
        
 
