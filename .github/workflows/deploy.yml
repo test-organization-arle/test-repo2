@@ -1,0 +1,17 @@
+name: Dev deployment
+
+# on:
+#   workflow_dispatch:
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  test1:   
+    runs-on: ubuntu-latest
+    steps:  
+      - name: Show checkout files
+        run: |
+          echo 'Get openapi file'
