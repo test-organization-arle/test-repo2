@@ -4,9 +4,10 @@ name: Get openapi file
 #   workflow_dispatch:
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_run:
+    workflows: [Testing FC_fastapi]
+    types:
+      - completed 
 
 jobs:
   test1:   

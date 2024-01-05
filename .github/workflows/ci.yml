@@ -4,9 +4,11 @@ name: Testing FC_fastapi
 #   workflow_dispatch:
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_run:
+    workflows:
+      - Dev deployment
+    types:
+      - completed
 
 jobs:
   test1:   
