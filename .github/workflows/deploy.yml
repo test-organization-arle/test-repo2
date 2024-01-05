@@ -1,8 +1,5 @@
 name: Dev deployment
 
-# on:
-#   workflow_dispatch:
-
 on:
   push:
     branches:
