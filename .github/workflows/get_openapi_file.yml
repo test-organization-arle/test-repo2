@@ -1,4 +1,4 @@
-name: Testing FC_fastapi
+name: Get openapi file
 
 # on:
 #   workflow_dispatch:
