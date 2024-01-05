@@ -6,7 +6,7 @@ name: Dev deployment
 on:
   push:
     branches:
-      - common
+      - develop
 
 jobs:
   test1:   
