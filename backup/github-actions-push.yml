@@ -1,0 +1,20 @@
+name: GitHub Actions for git commit direct pushes
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - "staging"
+      - "production"
+  push:
+    branches:
+      - "common"
+      - "develop"
+      - "staging"
+      - "production"
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/github-actions-template.yml
+    #secrets: inherit
+    secrets:
+      AWS_DEV_PIPELINE_ACCESS_KEY: ${{ secrets.AWS_DEV_PIPELINE_ACCESS_KEY }}

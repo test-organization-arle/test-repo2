@@ -1,0 +1,43 @@
+on:
+  workflow_call:
+    secrets:
+      AWS_DEV_PIPELINE_ACCESS_KEY:
+        required: false
+      AWS_DEV_PIPELINE_SECRET_KEY:
+        required: false
+  # pull_request:
+  #   types: [opened, synchronize, reopened]
+  #   branches:
+  #     - "staging"
+  #     - "production"
+  # push:
+  #   branches:
+  #     - "common"
+  #     - "develop"
+  #     - "staging"
+  #     - "production"
+
+jobs:  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: List S3 buckets
+      #   run: |
+      #     aws s3 ls 
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_PIPELINE_ACCESS_KEY }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_PIPELINE_SECRET_KEY }}
+      #     AWS_DEFAULT_REGION: 'ap-east-1'
+      - name: Run deploy job
+        run: |
+          echo "Deployment on process"
+          echo "GITHUB_REF_TYPE=$GITHUB_REF_TYPE"
+          echo "GITHUB_EVENT_NAME=$GITHUB_EVENT_NAME"
+          echo "GITHUB_BASE_REF=$GITHUB_BASE_REF"
+          echo "GITHUB_HEAD_REF=$GITHUB_HEAD_REF"
+          touch aws-credentials.txt
+          cat aws-credentials.txt | wc -c
+          echo "aws-access-key: $AWS_DEV_PIPELINE_ACCESS_KEY" > aws-credentials.txt
+          echo "aws-secret-key: $AWS_DEV_PIPELINE_SECRET_KEY" >> aws-credentials.txt
+          echo "cat aws-credentials.txt | wc -c"
+          cat aws-credentials.txt | wc -c
