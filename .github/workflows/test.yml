@@ -27,6 +27,8 @@ jobs:
                 echo "stage=prod" >> $GITHUB_OUTPUT
                 ;;
             esac
+        else
+          echo "stage=test" >> $GITHUB_OUTPUT
         fi
     outputs:
       stage: ${{ steps.map.outputs.stage }}
