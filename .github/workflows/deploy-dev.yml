@@ -7,9 +7,9 @@ on:
 
 jobs:
   deploy:
-    name: Deploy in ${{ needs.map-envs.outputs.stage }} stage
+    name: Deploy in test stage
     runs-on: ubuntu-latest
 
     steps:
       - run: |
-          echo "Deploying in ${{ needs.map-envs.outputs.stage }} stage"
+          echo "Deploying in test stage"
