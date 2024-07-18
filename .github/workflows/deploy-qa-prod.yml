@@ -1,0 +1,33 @@
+name: Deploy.
+
+on:
+  push:
+    branches:
+      - develop
+      - production
+
+jobs:
+  map-envs:
+    runs-on: ubuntu-latest
+    steps:
+    - id: map
+      run: |    
+        case "${{github.ref_name}}" in
+        develop)
+            echo "stage=qa" >> $GITHUB_OUTPUT
+            ;;
+        production)
+            echo "stage=prod" >> $GITHUB_OUTPUT
+            ;;
+        esac
+    outputs:
+      stage: ${{ steps.map.outputs.stage }}
+
+  deploy:
+    name: Deploy in ${{ needs.map-envs.outputs.stage }} stage
+    needs: map-envs
+    runs-on: ubuntu-latest
+
+    steps:        
+      - run: |
+          echo "Deploying in ${{ needs.map-envs.outputs.stage }} stage"
