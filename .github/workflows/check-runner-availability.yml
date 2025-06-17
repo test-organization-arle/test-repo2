@@ -12,13 +12,20 @@ jobs:
     outputs:
       runner: ${{ steps.set-runner.outputs.use-runner }}
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}        
       - name: Determine which runner to use
         id: set-runner
         uses: jimmygchen/runner-fallback-action@v1
         with:
           primary-runner: "self-hosted,macOS"
           fallback-runner: "ubuntu-latest"
-          github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          #github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          github-token: ${{ steps.generate_token.outputs.token }}
 
   another-job:
     needs: determine-runner
