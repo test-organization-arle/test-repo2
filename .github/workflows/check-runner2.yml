@@ -1,0 +1,52 @@
+name: Check Runner Availability
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - STVI-7161
+
+jobs:
+  check_runner:
+    runs-on: ubuntu-latest
+    outputs:
+      runner_available: ${{ steps.check-runner.outputs.available }}
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      - name: Check self-hosted runner availability
+        id: check-runner
+        env:
+          ORG_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+           curl -s -H "Authorization: token $ORG_GITHUB_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runners"
+          
+#           # Check if any runners are online with the 'self-hosted' label
+#           ONLINE=$(echo "$RESPONSE" | jq -r '.runners[] | select(.status=="online") | select(.labels[].name=="self-hosted") | .id' | wc -l)
+          
+#           if [ "$ONLINE" -gt 0 ]; then
+#             echo "available=true" >> $GITHUB_OUTPUT
+#             echo "Self-hosted runner available"
+#           else
+#             echo "available=false" >> $GITHUB_OUTPUT
+#             echo "No self-hosted runners available"
+#           fi
+
+#   use_runner:
+#     needs: check_runner
+#     if: needs.check_runner.outputs.runner_available == 'true'
+#     runs-on: self-hosted
+#     steps:
+#       - run: echo "Running on self-hosted runner"
+
+#   fallback:
+#     needs: check_runner
+#     if: needs.check_runner.outputs.runner_available == 'false'
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "Falling back to GitHub-hosted runner"
