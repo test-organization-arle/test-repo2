@@ -36,6 +36,8 @@ jobs:
             echo "available=false" >> $GITHUB_OUTPUT
           fi
 
+          echo "$ORG_RESPONSE"
+
       - name: Check repository runners
         id: check-repo-runners
         env:
@@ -52,6 +54,8 @@ jobs:
           else
             echo "available=false" >> $GITHUB_OUTPUT
           fi
+
+          echo "$REPO_RESPONSE"
 
   use_runner:
     needs: check_runners
