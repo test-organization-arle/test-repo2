@@ -1,0 +1,15 @@
+name: Test Check Runner Availability.
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+
+jobs:
+  # Job to 
+  determine-runner:
+    runs-on: self-hosted
+    steps:
+      - name: Run command
+        run: echo "Running on self-hosted runner"
+   
