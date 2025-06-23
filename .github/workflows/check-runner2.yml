@@ -44,7 +44,7 @@ jobs:
           PAT: ${{ steps.generate_token.outputs.token }}        
         run: |
           # For repository-level runners
-          REPO_RESPONSE=$(curl -s -H "Authorization: token $PAT" \
+          REPO_RESPONSE=$(curl -s -H "Authorization: token $PAT2" \
             "https://api.github.com/repos/${{ github.repository }}/actions/runners")
           
           REPO_ONLINE=$(echo "$REPO_RESPONSE" | jq -r '.runners[] | select(.status=="online") | select(.labels[].name=="self-hosted") | .id' | wc -l)
