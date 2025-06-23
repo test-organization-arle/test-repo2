@@ -26,7 +26,7 @@ jobs:
         run: |
           # For organization runners (replace ORG_NAME with your org name)
           ORG_RESPONSE=$(curl -s -H "Authorization: token $PAT" \
-            "https://api.github.com/orgs/ORG_NAME/actions/runners")
+            "https://api.github.com/orgs/${{ github.repository_owner }}/actions/runners")
           
           ORG_ONLINE=$(echo "$ORG_RESPONSE" | jq -r '.runners[] | select(.status=="online") | select(.labels[].name=="self-hosted") | .id' | wc -l)
           
