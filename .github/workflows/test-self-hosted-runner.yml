@@ -1,4 +1,4 @@
-name: Test Check Runner Availability.
+name: Run a command on the self-hosted runner.
 on: 
   workflow_dispatch:
   push:
